@@ -9,10 +9,11 @@ import org.springframework.context.annotation.Configuration;
 public class WebConfig {
 
     @Bean
-    ServletRegistrationBean h2ServetRegistrationBean() {
+    ServletRegistrationBean h2servletRegistration(){
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new WebServlet());
         servletRegistrationBean.addUrlMappings("/console/*");
         return servletRegistrationBean;
-    }
-}
 
+    }
+
+}
