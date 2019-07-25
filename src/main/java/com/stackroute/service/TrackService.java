@@ -1,3 +1,4 @@
+//database operations
 package com.stackroute.service;
 
 import com.stackroute.domain.Track;
@@ -7,12 +8,11 @@ public interface TrackService {
 
     public Track saveTrack(Track track);
 
-    public List<Track> getAllTracks();
+    public List<Track>getAllTracks();
 
-    public Track updateTrack(Track track);
+    public int deleteTrack(long id);
 
-    public void removeTrack(int trackId);
+    public Track getTrackById(int noteId);
+
+    public Track UpdateTrack(Track track);
 }
-
-
-

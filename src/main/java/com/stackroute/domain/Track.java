@@ -1,48 +1,60 @@
 package com.stackroute.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Track {
 
     @Id
-    int trackId;
-    String trackName;
-    String trackComments;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column
+    private String name;
+
+    @Column
+    private String comment;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public Track() {
     }
 
-    public Track(int trackId, String trackName, String trackComments) {
-        this.trackId = trackId;
-        this.trackName = trackName;
-        this.trackComments =  trackComments;
+    public Track(int id, String name, String comment) {
+        this.id = id;
+        this.name = name;
+        this.comment = comment;
     }
 
-    public int getTrackId() {
-        return trackId;
-    }
-
-    public void setTrackId(int trackId) {
-        this.trackId = trackId;
-    }
-
-    public String getTrackName() {
-        return trackName;
-    }
-
-    public void setTrackName(String trackName) {
-        this.trackName = trackName;
-
-    }
-
-    public void setTrackComments(String trackComments) {
-        this.trackComments = trackComments;
-    }
-
-    public String getTrackComments() {
-        return trackComments;
+    @Override
+    public String toString() {
+        return "Track{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", comment='" + comment + '\'' +
+                '}';
     }
 }
