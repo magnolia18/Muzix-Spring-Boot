@@ -2,11 +2,12 @@
 package com.stackroute.controller;
 
 
+
 import com.stackroute.domain.Track;
+import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.service.TrackService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,9 +35,10 @@ public class TrackController {
             responseEntity = new ResponseEntity<String>("Succesfully saved", HttpStatus.CREATED);
 
 
-        }catch(Exception e){
+        }catch(TrackAlreadyExistsException e){
             responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 
+            e.printStackTrace();
         }
         return  responseEntity;
 
@@ -44,7 +46,15 @@ public class TrackController {
 
     @GetMapping("track")
     public  ResponseEntity<?> getallTracks(){
-        return new ResponseEntity<List<Track>>(trackService.getAllTracks(),HttpStatus.OK);
+        ResponseEntity responseEntity;
+        try {
+            responseEntity = new ResponseEntity <List<Track>>(trackService.getAllTracks(),HttpStatus.OK);
+        } catch (TrackNotFoundException e) {
+            responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+
+            e.printStackTrace();
+        }
+        return  responseEntity;
     }
 
     @DeleteMapping("track/{id}")
@@ -91,6 +101,22 @@ public class TrackController {
 
     }
 
+    @PostMapping("track/{name}")
+    public ResponseEntity<?> getTrackbyName(@PathVariable String name) {
+
+        ResponseEntity responseEntity;
+
+        try {
+            responseEntity = new ResponseEntity<List<Track>>(trackService.getTrackbyName(name), HttpStatus.CREATED);
+
+
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+
+        }
+        return responseEntity;
+
+    }
 }
 
 /**
